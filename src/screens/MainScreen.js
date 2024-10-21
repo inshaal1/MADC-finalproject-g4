@@ -28,10 +28,10 @@ const MainScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header Section with Hamburger Icon and Title */}
+     
       <View style={styles.header}>
         <Text style={styles.title}>Generate QR</Text>
-        <TouchableOpacity style={styles.menuButton}>
+        <TouchableOpacity style={styles.menuButton} onPress={()=>{navigation.navigate('SettingsScreen')}}>
           <MaterialIcons name="menu" size={30} color="#FFA500" />
         </TouchableOpacity>
       </View>
@@ -57,20 +57,20 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   header: {
-    flexDirection: 'row', // Align items in a row
-    justifyContent: 'space-between', // Space between title and hamburger icon
-    alignItems: 'center', // Center items vertically
-    paddingHorizontal: 20, // Optional padding
-    marginBottom: 20, // Add some space below the header
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 20, 
   },
   title: {
     fontSize: 24,
     color: '#FFA500',
-    flex: 1, // Allow title to take remaining space
-    textAlign: 'center', // Center title text
+    flex: 1, 
+    textAlign: 'center', 
   },
   scrollContainer: {
-    flex: 1, // Allow ScrollView to take remaining space
+    flex: 1, 
   },
   grid: {
     flexDirection: 'row',
