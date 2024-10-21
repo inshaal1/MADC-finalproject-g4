@@ -23,7 +23,7 @@ const HistoryScreen = () => {
 
   const renderItem = ({ item }) => {
     if (!item.data || !item.timestamp) {
-      return null; // Skip rendering if data or timestamp is missing
+      return null; 
     }
     return (
       <View style={styles.item}>
@@ -37,7 +37,7 @@ const HistoryScreen = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>History</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Drawer')}>
+        <TouchableOpacity onPress={() => navigation.navigate('SettingsScreen')}>
           <MaterialIcons name="menu" size={30} color="#fff" />
         </TouchableOpacity>
       </View>
