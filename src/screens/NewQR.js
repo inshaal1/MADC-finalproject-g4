@@ -4,7 +4,7 @@ import QRCode from 'react-native-qrcode-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { heightRef, widthRef } from '../utils/Dimensions'; // Adjust the import path accordingly
 
-const NewQR = ({ navigation, route }) => { // Added 'navigation' prop
+const NewQR = ({ navigation, route }) => { 
   const { type } = route.params;
   const [qrData, setQrData] = useState('');
   const [inputData, setInputData] = useState({
@@ -69,7 +69,7 @@ const NewQR = ({ navigation, route }) => { // Added 'navigation' prop
       case 'Telephone':
         return inputData.telephoneNumber 
           ? `tel:${inputData.telephoneNumber}` 
-          : 'Telephone Number Missing'; // Added case for Telephone
+          : 'Telephone Number Missing'; 
       case 'Business':
         return inputData.businessName && inputData.businessUrl 
           ? `BEGIN:VCARD\nVERSION:3.0\nFN:${inputData.businessName}\nURL:${inputData.businessUrl}\nNOTE:${inputData.businessDescription}\nEND:VCARD` 

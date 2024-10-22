@@ -8,16 +8,16 @@ const QrCodeScreen = ({ route }) => {
 
   useEffect(() => {
     const saveToHistory = async () => {
-      const timestamp = new Date().toLocaleString(); // Get current date and time
-      const scannedItem = { data: qrValue, timestamp }; // Create an object to hold both
+      const timestamp = new Date().toLocaleString(); 
+      const scannedItem = { data: qrValue, timestamp }; 
   
       try {
         const storedHistory = await AsyncStorage.getItem('scanHistory');
         const history = storedHistory ? JSON.parse(storedHistory) : [];
-        history.push(scannedItem); // Save the new item
-        await AsyncStorage.setItem('scanHistory', JSON.stringify(history)); // Save back to storage
+        history.push(scannedItem); 
+        await AsyncStorage.setItem('scanHistory', JSON.stringify(history)); 
       } catch (error) {
-        console.error('Error saving to history:', error); // Log any error that occurs
+        console.error('Error saving to history:', error);
       }
     };
   

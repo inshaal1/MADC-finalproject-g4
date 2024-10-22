@@ -2,14 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet, View, Text, Button, Modal, TouchableOpacity, Animated } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fullHeight, fullWidth } from '../utils/Dimensions';
 
 const Camera = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [scannedData, setScannedData] = useState('');
-  const scanLineAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     (async () => {
@@ -17,32 +15,15 @@ const Camera = () => {
       setHasPermission(status === 'granted');
     })();
 
-    startScanLineAnimation();
   }, []);
 
-  const startScanLineAnimation = () => {
-    scanLineAnim.setValue(0);
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(scanLineAnim, {
-          toValue: fullWidth * 0.6, // Move scan line within the scan area
-          duration: 1500,
-          useNativeDriver: false,
-        }),
-        Animated.timing(scanLineAnim, {
-          toValue: 0, // Move back to the start position
-          duration: 1500,
-          useNativeDriver: false,
-        }),
-      ])
-    ).start();
-  };
+ 
 
   const handleBarCodeScanned = async ({ type, data }) => {
     if (scanned) return;
 
     setScanned(true);
-    setScannedData(`Bar code with type ${type} and data ${data} has been scanned!`);
+    setScannedData(`data: ${data} has been scanned!`);
     setModalVisible(true);
 
     const timestamp = new Date().toLocaleString();
@@ -76,13 +57,7 @@ const Camera = () => {
         style={StyleSheet.absoluteFillObject}
       />
       
-      <Animated.View
-        style={[
-          styles.scanLine,
-          { transform: [{ translateY: scanLineAnim }] }, // Move the line based on animated value
-        ]}
-      />
-
+    
       {scanned && (
         <Button title={'Tap to Scan Again'} onPress={handleScanAgain} />
       )}
@@ -95,7 +70,7 @@ const Camera = () => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={handleScanAgain} // Close modal on back press
+        onRequestClose={handleScanAgain} 
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
