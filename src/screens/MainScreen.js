@@ -88,23 +88,26 @@ const styles = StyleSheet.create({
     margin: 10 * heightRef,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10 * widthRef,
+    borderRadius: 5 * widthRef,
     borderWidth: 1,
     borderColor: '#FFA500',
+    marginVertical:20*heightRef,
+    padding: 1* widthRef
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: '#000',
     marginTop: 30 * widthRef,
     textAlign: 'center',
     top: -60 * heightRef,
     backgroundColor: '#FFA500',
     paddingHorizontal: 3 * widthRef,
-    borderRadius: 5 * widthRef,
+    borderRadius: 3 * widthRef,
   },
   buttonImage: {
     marginTop: 0,
     textAlign: 'center',
     top: -35 * heightRef,
+    padding: 1* widthRef
   },
 });
 
