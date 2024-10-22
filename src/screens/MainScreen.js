@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
@@ -25,20 +25,12 @@ const MainScreen = () => {
   const handlePress = (type) => {
     navigation.navigate('NewQR', { type });
   };
-  
 
   return (
     <View style={styles.container}>
-<<<<<<< HEAD
       <View style={styles.header}>
         <Text style={styles.title}>Generate QR</Text>
-        <TouchableOpacity style={styles.menuButton} onPress={() => { navigation.navigate('SettingsScreen') }}>
-=======
-     
-      <View style={styles.header}>
-        <Text style={styles.title}>Generate QR</Text>
-        <TouchableOpacity style={styles.menuButton} onPress={()=>{navigation.navigate('SettingsScreen')}}>
->>>>>>> e3d0e33cb175a4cc912f93ad8468fe9253f00f7b
+        <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate('SettingsScreen')}>
           <MaterialIcons name="menu" size={30} color="#FFA500" />
         </TouchableOpacity>
       </View>
@@ -52,7 +44,7 @@ const MainScreen = () => {
               onPress={() => handlePress(option.name)} 
             >
               <Text style={styles.buttonText}>{option.name}</Text>
-              <Icon style={styles.buttonimage} name={option.icon} size={30} color="#FFA500" />
+              <Icon style={styles.buttonImage} name={option.icon} size={30} color="#FFA500" />
             </TouchableOpacity>
           ))}
         </View>
@@ -70,36 +62,19 @@ const styles = StyleSheet.create({
     width: fullWidth,
   },
   header: {
-<<<<<<< HEAD
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20 * widthRef,
     marginBottom: 20 * widthRef,
   },
   title: {
-    fontSize: 20 * widthRef,
-    color: '#FFFFFF',
+    fontSize: 24,
+    color: '#FFA500',
     flex: 1,
     textAlign: 'center',
   },
   scrollContainer: {
     flex: 1,
-=======
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    marginBottom: 20, 
-  },
-  title: {
-    fontSize: 24,
-    color: '#FFA500',
-    flex: 1, 
-    textAlign: 'center', 
-  },
-  scrollContainer: {
-    flex: 1, 
->>>>>>> e3d0e33cb175a4cc912f93ad8468fe9253f00f7b
   },
   grid: {
     flexDirection: 'row',
@@ -116,18 +91,17 @@ const styles = StyleSheet.create({
     borderRadius: 10 * widthRef,
     borderWidth: 1,
     borderColor: '#FFA500',
-    marginTop: 10 * widthRef,
   },
   buttonText: {
-    color: '#FFFFFF', 
-    marginTop: 20 * widthRef,
+    color: '#FFFFFF',
+    marginTop: 30 * widthRef,
     textAlign: 'center',
-    top: -55 * heightRef,
+    top: -60 * heightRef,
     backgroundColor: '#FFA500',
     paddingHorizontal: 3 * widthRef,
     borderRadius: 5 * widthRef,
   },
-  buttonimage: {
+  buttonImage: {
     marginTop: 0,
     textAlign: 'center',
     top: -35 * heightRef,

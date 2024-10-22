@@ -83,19 +83,21 @@ const NewQR = ({ navigation, route }) => { // Added 'navigation' prop
     try {
       const existingHistory = await AsyncStorage.getItem('qrHistory');
       const history = existingHistory ? JSON.parse(existingHistory) : [];
-      
-      const timestamp = new Date().toLocaleString(); 
-      history.push({ data, timestamp }); 
-      
+      const timestamp = new Date().toLocaleString();
+      history.push({ data, timestamp });
       await AsyncStorage.setItem('qrHistory', JSON.stringify(history));
     } catch (error) {
       console.error('Error saving to history', error);
     }
   };
-  
+
 
   const handleGenerate = () => {
     const data = generateData();
+    if (data.includes('Incomplete') || data.includes('Missing')) {
+      Alert.alert('Error', 'Please fill in all required fields.');
+      return;
+    }
     setQrData(data);
     saveToHistory(data);
   };
@@ -105,9 +107,8 @@ const NewQR = ({ navigation, route }) => { // Added 'navigation' prop
   };
 
   const handleBack = () => {
-    navigation.goBack(); 
+    navigation.goBack();
   };
-
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.backButton} onPress={handleBack}>
