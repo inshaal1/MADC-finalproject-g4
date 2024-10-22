@@ -1,12 +1,12 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { fullHeight, fullWidth, heightRef, widthRef } from "../utils/Dimensions";
 
 const MainScreen = () => {
   const navigation = useNavigation();
-
   const options = [
     { name: 'Text', icon: 'font' },
     { name: 'Website', icon: 'globe' },
@@ -22,16 +22,16 @@ const MainScreen = () => {
     { name: 'Telephone', icon: 'phone' },
   ];
 
-  const handlePress = (option) => {
-    navigation.navigate('NewQR', { type: option.name });
+  const handlePress = (type) => {
+    navigation.navigate('NewQR', { type });
   };
+  
 
   return (
     <View style={styles.container}>
-      {/* Header Section with Hamburger Icon and Title */}
       <View style={styles.header}>
         <Text style={styles.title}>Generate QR</Text>
-        <TouchableOpacity style={styles.menuButton}>
+        <TouchableOpacity style={styles.menuButton} onPress={() => { navigation.navigate('SettingsScreen') }}>
           <MaterialIcons name="menu" size={30} color="#FFA500" />
         </TouchableOpacity>
       </View>
@@ -39,9 +39,13 @@ const MainScreen = () => {
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.grid}>
           {options.map((option, index) => (
-            <TouchableOpacity key={index} style={styles.button} onPress={() => handlePress(option)}>
-              <Icon name={option.icon} size={30} color="#FFA500" />
+            <TouchableOpacity 
+              key={index} 
+              style={styles.button} 
+              onPress={() => handlePress(option.name)} 
+            >
               <Text style={styles.buttonText}>{option.name}</Text>
+              <Icon style={styles.buttonimage} name={option.icon} size={30} color="#FFA500" />
             </TouchableOpacity>
           ))}
         </View>
@@ -53,24 +57,25 @@ const MainScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#1E1E1E',
     paddingTop: 40,
+    height: fullHeight,
+    width: fullWidth,
   },
   header: {
-    flexDirection: 'row', // Align items in a row
-    justifyContent: 'space-between', // Space between title and hamburger icon
-    alignItems: 'center', // Center items vertically
-    paddingHorizontal: 20, // Optional padding
-    marginBottom: 20, // Add some space below the header
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20 * widthRef,
+    marginBottom: 20 * widthRef,
   },
   title: {
-    fontSize: 24,
-    color: '#FFA500',
-    flex: 1, // Allow title to take remaining space
-    textAlign: 'center', // Center title text
+    fontSize: 20 * widthRef,
+    color: '#FFFFFF',
+    flex: 1,
+    textAlign: 'center',
   },
   scrollContainer: {
-    flex: 1, // Allow ScrollView to take remaining space
+    flex: 1,
   },
   grid: {
     flexDirection: 'row',
@@ -78,18 +83,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    backgroundColor: '#333',
-    width: 100,
-    height: 100,
-    margin: 10,
+    backgroundColor: '#1E1E1E',
+    width: 60 * widthRef,
+    height: 100 * heightRef,
+    margin: 10 * heightRef,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 10,
+    borderRadius: 10 * widthRef,
+    borderWidth: 1,
+    borderColor: '#FFA500',
+    marginTop: 10 * widthRef,
   },
   buttonText: {
-    color: '#FFA500',
-    marginTop: 10,
+    color: '#FFFFFF', 
+    marginTop: 20 * widthRef,
     textAlign: 'center',
+    top: -55 * heightRef,
+    backgroundColor: '#FFA500',
+    paddingHorizontal: 3 * widthRef,
+    borderRadius: 5 * widthRef,
+  },
+  buttonimage: {
+    marginTop: 0,
+    textAlign: 'center',
+    top: -35 * heightRef,
   },
 });
 

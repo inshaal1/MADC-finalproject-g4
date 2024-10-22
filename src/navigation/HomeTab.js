@@ -1,8 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MainScreen from './MainScreen'; // Ensure MainScreen is imported
-import Camera from './Camera';
-import HistoryScreen from './HistoryScreen';
+import MainScreen from '../screens/MainScreen'; 
+import Camera from '../screens/Camera';
+import HistoryScreen from '../screens/HistoryScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Tab = createBottomTabNavigator();

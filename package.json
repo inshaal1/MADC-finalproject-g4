@@ -21,6 +21,7 @@
     "expo-barcode-scanner": "^13.0.1",
     "expo-camera": "~15.0.16",
     "expo-permissions": "^14.4.0",
+    "expo-router": "^3.5.23",
     "expo-status-bar": "~1.12.1",
     "moment": "^2.30.1",
     "react": "18.2.0",

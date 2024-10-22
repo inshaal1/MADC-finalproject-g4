@@ -18,17 +18,15 @@ const Camera = () => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
 
-    // Save the scanned data with a timestamp to history
-    const timestamp = new Date().toLocaleString(); // Get current date and time
-    const scannedItem = { data, timestamp }; // Create an object to hold both
-
+    const timestamp = new Date().toLocaleString(); 
+    const scannedItem = { data, timestamp };
     try {
       const storedHistory = await AsyncStorage.getItem('scanHistory');
       const history = storedHistory ? JSON.parse(storedHistory) : [];
-      history.push(scannedItem); // Push scanned item with timestamp to history
-      await AsyncStorage.setItem('scanHistory', JSON.stringify(history)); // Save back to storage
+      history.push(scannedItem); 
+      await AsyncStorage.setItem('scanHistory', JSON.stringify(history)); 
     } catch (error) {
-      console.error('Error saving to history:', error); // Log any error that occurs
+      console.error('Error saving to history:', error); 
     }
   };
 
