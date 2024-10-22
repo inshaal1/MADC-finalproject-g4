@@ -29,9 +29,16 @@ const MainScreen = () => {
 
   return (
     <View style={styles.container}>
+<<<<<<< HEAD
       <View style={styles.header}>
         <Text style={styles.title}>Generate QR</Text>
         <TouchableOpacity style={styles.menuButton} onPress={() => { navigation.navigate('SettingsScreen') }}>
+=======
+     
+      <View style={styles.header}>
+        <Text style={styles.title}>Generate QR</Text>
+        <TouchableOpacity style={styles.menuButton} onPress={()=>{navigation.navigate('SettingsScreen')}}>
+>>>>>>> e3d0e33cb175a4cc912f93ad8468fe9253f00f7b
           <MaterialIcons name="menu" size={30} color="#FFA500" />
         </TouchableOpacity>
       </View>
@@ -63,6 +70,7 @@ const styles = StyleSheet.create({
     width: fullWidth,
   },
   header: {
+<<<<<<< HEAD
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20 * widthRef,
@@ -76,6 +84,22 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 1,
+=======
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 20, 
+  },
+  title: {
+    fontSize: 24,
+    color: '#FFA500',
+    flex: 1, 
+    textAlign: 'center', 
+  },
+  scrollContainer: {
+    flex: 1, 
+>>>>>>> e3d0e33cb175a4cc912f93ad8468fe9253f00f7b
   },
   grid: {
     flexDirection: 'row',
