@@ -68,10 +68,9 @@ const styles = StyleSheet.create({
     marginBottom: 20 * widthRef,
   },
   title: {
-    fontSize: 24,
-    color: '#FFA500',
+    fontSize: 26,
+    color: '#FFF',
     flex: 1,
-    textAlign: 'center',
   },
   scrollContainer: {
     flex: 1,
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#1E1E1E',
-    width: 60 * widthRef,
+    width: 55 * widthRef,
     height: 100 * heightRef,
     margin: 10 * heightRef,
     alignItems: 'center',

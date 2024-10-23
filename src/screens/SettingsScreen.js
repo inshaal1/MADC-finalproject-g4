@@ -82,38 +82,38 @@ const styles = StyleSheet.create({
   arrowBox: {
     backgroundColor: '#1E1E1E',
     borderRadius: 12 * widthRef,
-    padding: 10 * widthRef,
+    padding: 5 * widthRef,
     elevation: 10,  
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 * heightRef },
     shadowOpacity: 0.5,  
     shadowRadius: 5 * widthRef,  
-    width: 48 * widthRef,
-    height: 48 * widthRef,
+    width: 25 * widthRef,
+    height: 27 * widthRef,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'flex-start',
-    marginLeft: 20 * widthRef,
+    marginLeft: 5 * widthRef,
   },
   arrow: {
-    fontSize: 24 * widthRef,
+    fontSize: 15 * widthRef,
     color: '#FFC107',
   },
   marginBottom: {
     marginBottom: 15 * heightRef,
   },
   header: {
-    fontSize: 22 * widthRef,
+    fontSize: 18 * widthRef,
     color: '#FFC107',
     marginBottom: 15 * heightRef,
     alignSelf: 'flex-start',
-    marginLeft: '5%',
+    marginLeft: 5 * widthRef,
   },
   box: {
     backgroundColor: '#1E1E1E',
     width: '95%',
-    paddingVertical: 12 * heightRef,
-    paddingHorizontal: 16 * widthRef,
+    paddingVertical: 10 * heightRef,
+    paddingHorizontal: 10 * widthRef,
     borderRadius: 10 * widthRef,
     marginBottom: 16 * heightRef,
     elevation: 5,
@@ -128,15 +128,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 5 * heightRef,
+    marginBottom: 1 * heightRef,
   },
   optionText: {
     color: '#FFFFFF',
-    fontSize: 16 * widthRef,
+    fontSize: 12 * widthRef,
   },
   description: {
     color: '#B0B0B0',
-    fontSize: 14 * widthRef,
+    fontSize: 8 * widthRef,
   },
   sectionSpacing: {
     marginBottom: 30 * heightRef,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   supportBox: {
     backgroundColor: '#1E1E1E',
     width: '95%',
-    paddingVertical: 8 * heightRef,
+    paddingVertical: 1 * heightRef,
     borderRadius: 10 * widthRef,
     elevation: 5,
     shadowColor: '#000',
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   supportOption: {
-    paddingVertical: 15 * heightRef,
+    paddingVertical: 10 * heightRef,
     paddingHorizontal: 8 * widthRef,
   },
   borderBottom: {
@@ -165,11 +165,11 @@ const styles = StyleSheet.create({
   },
   supportText: {
     color: '#FFFFFF',
-    fontSize: 16 * widthRef,
+    fontSize: 12 * widthRef,
   },
   supportDescription: {
     color: '#B0B0B0',
-    fontSize: 14 * widthRef,
+    fontSize: 8 * widthRef,
   },
 });
 
