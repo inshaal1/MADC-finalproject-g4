@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +9,8 @@ const HistoryScreen = () => {
   const navigation = useNavigation();
   const [history, setHistory] = useState([]);
   const [showCreatedHistory, setShowCreatedHistory] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [isSelecting, setIsSelecting] = useState(false); // To track selection mode
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -24,15 +26,53 @@ const HistoryScreen = () => {
     fetchHistory();
   }, [showCreatedHistory]);
 
+  // Function to toggle selection of an item
+  const handleLongPress = (item) => {
+    setIsSelecting(true);
+    if (selectedItems.includes(item)) {
+      setSelectedItems(selectedItems.filter(i => i !== item));
+    } else {
+      setSelectedItems([...selectedItems, item]);
+    }
+  };
+
+  // Function to delete selected items
+  const deleteSelectedItems = async () => {
+    const updatedHistory = history.filter(item => !selectedItems.includes(item));
+    setHistory(updatedHistory);
+    setSelectedItems([]);
+    setIsSelecting(false);
+    await AsyncStorage.setItem(showCreatedHistory ? 'qrHistory' : 'scanHistory', JSON.stringify(updatedHistory));
+  };
+
+  // Function to handle Select All
+  const selectAll = () => {
+    if (selectedItems.length === history.length) {
+      setSelectedItems([]); // Deselect all if already selected
+    } else {
+      setSelectedItems(history); // Select all items
+    }
+  };
+
+  // Render an individual history item
   const renderItem = ({ item }) => {
     if (!item.data || !item.timestamp) {
       return null;
     }
+
+    const isSelected = selectedItems.includes(item);
+    
     return (
-      <View style={styles.item}>
+      <TouchableOpacity
+        onLongPress={() => handleLongPress(item)}
+        style={[
+          styles.item, 
+          isSelected && styles.selectedItem // Highlight selected items
+        ]}
+      >
         <Text style={styles.itemText}>{item.data}</Text>
         <Text style={styles.dateText}>{item.timestamp}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -40,7 +80,7 @@ const HistoryScreen = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>History</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('SettingsScreen')}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <MaterialIcons name="menu" size={20 * widthRef} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -59,6 +99,17 @@ const HistoryScreen = () => {
           <Text style={styles.buttonText}>Create</Text>
         </TouchableOpacity>
       </View>
+
+      {isSelecting && (
+        <View style={styles.selectionActions}>
+          <TouchableOpacity style={styles.selectAllButton} onPress={selectAll}>
+            <Text style={styles.selectAllText}>Select All</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.deleteButton} onPress={deleteSelectedItems}>
+            <Text style={styles.deleteText}>Delete</Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
       {history.length > 0 ? (
         <FlatList
@@ -87,7 +138,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom:40 * heightRef
+    paddingBottom: 40 * heightRef,
   },
   title: {
     fontSize: 40 * heightRef,
@@ -120,6 +171,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  selectedItem: {
+    backgroundColor: '#ff8800', 
+  },
   itemText: {
     color: '#fff',
     fontSize: 18 * heightRef,
@@ -140,6 +194,31 @@ const styles = StyleSheet.create({
   },
   flatListContent: {
     flexGrow: 1,
+  },
+  selectionActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10 * heightRef,
+  },
+  selectAllButton: {
+    backgroundColor: '#FFA500',
+    padding: 10 * heightRef,
+    borderRadius: 10,
+    marginHorizontal:10* heightRef
+  },
+  selectAllText: {
+    color: '#000',
+    fontWeight: 'bold',
+  },
+  deleteButton: {
+    backgroundColor: '#FF0000',
+    padding: 10 * heightRef,
+    borderRadius: 10,
+    marginHorizontal:10* heightRef
+  },
+  deleteText: {
+    color: '#FFF',
+    fontWeight: 'bold',
   },
 });
 

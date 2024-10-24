@@ -2,9 +2,8 @@ import { StyleSheet, Text, TouchableOpacity, View, Image ,navigate,navigation} f
 import React from "react";
 import { fullHeight, fullWidth, heightRef, widthRef } from "../utils/Dimensions";
 import Icon from 'react-native-vector-icons/Ionicons';
+
 const Splash = ({ navigation }) => {
-
-
   return (
     <View style={styles.container}>
       <View style={styles.logo}>
@@ -13,8 +12,8 @@ const Splash = ({ navigation }) => {
 
       <Text style={styles.description}>
         Go and enjoy our features for free and make your life easy with us.
-      </Text>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.replace('HomeTabs')}>
+      </Text> 
+      <TouchableOpacity style={styles.button} onPress={() => navigation.replace('DrawerNavigation')}>
         <Text style={styles.buttonText}>Let's Start</Text>
         <Icon name="arrow-forward" size={20} color="#FFFFFF" />
       </TouchableOpacity>

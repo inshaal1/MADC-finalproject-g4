@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MainScreen from '../screens/MainScreen'; 
+import GenerateQR from '../screens/GenerateQR'; 
 import Camera from '../screens/Camera';
 import HistoryScreen from '../screens/HistoryScreen';
 import { Image, TouchableOpacity, View } from 'react-native'; 
@@ -10,10 +10,10 @@ import qrcodeImage from '../assets/qrcode.png';
 
 const Tab = createBottomTabNavigator();
 
-const HomeTabs = () => {
+const BottomTabNavigation = () => {
   return (
     <Tab.Navigator 
-      initialRouteName="MainScreen"
+      initialRouteName="GenerateQR"
       screenOptions={({ route }) => ({
         tabBarStyle: {
           backgroundColor: '#1E1E1E', 
@@ -39,7 +39,7 @@ const HomeTabs = () => {
           }
           let Icon;
           switch (route.name) {
-            case 'MainScreen':
+            case 'GenerateQR':
               Icon = (
                 <FontAwesome 
                   name="qrcode" 
@@ -65,8 +65,8 @@ const HomeTabs = () => {
       })}>
       
       <Tab.Screen 
-        name="MainScreen" 
-        component={MainScreen} 
+        name="GenerateQR" 
+        component={GenerateQR} 
         options={{
           tabBarLabel: 'Generate',
           headerShown: false,
@@ -115,4 +115,4 @@ const HomeTabs = () => {
   );
 };
 
-export default HomeTabs;
+export default BottomTabNavigation;

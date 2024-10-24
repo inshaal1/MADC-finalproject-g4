@@ -1,36 +1,60 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'; 
+import { useNavigation } from '@react-navigation/native';
 import { fullHeight, fullWidth, heightRef, widthRef } from "../utils/Dimensions";
 
-const MainScreen = () => {
+const GenerateQR = () => {
   const navigation = useNavigation();
   const options = [
-    { name: 'Text', icon: 'font' },
-    { name: 'Website', icon: 'globe' },
-    { name: 'WiFi', icon: 'wifi' },
-    { name: 'Event', icon: 'calendar' },
-    { name: 'Contact', icon: 'address-card' },
-    { name: 'Business', icon: 'briefcase' },
-    { name: 'Location', icon: 'map-marker' },
-    { name: 'WhatsApp', icon: 'whatsapp' },
-    { name: 'Email', icon: 'envelope' },
-    { name: 'Twitter', icon: 'twitter' },
-    { name: 'Instagram', icon: 'instagram' },
-    { name: 'Telephone', icon: 'phone' },
+    { name: 'Text', icon: 'format-textbox', type: 'MaterialCommunityIcons' }, 
+    { name: 'Website', icon: 'globe', type: 'FontAwesome' },
+    { name: 'WiFi', icon: 'wifi', type: 'FontAwesome' },
+    { name: 'Event', icon: 'calendar', type: 'FontAwesome' },
+    { name: 'Contact', icon: 'address-card', type: 'FontAwesome' },
+    { name: 'Business', icon: 'briefcase', type: 'FontAwesome' },
+    { name: 'Location', icon: 'map-marker', type: 'FontAwesome' },
+    { name: 'WhatsApp', icon: 'whatsapp', type: 'FontAwesome' },
+    { name: 'Email', icon: 'envelope', type: 'FontAwesome' },
+    { name: 'Twitter', icon: 'twitter', type: 'FontAwesome' },
+    { name: 'Instagram', icon: 'instagram', type: 'FontAwesome' },
+    { name: 'Telephone', icon: 'phone', type: 'FontAwesome' },
   ];
 
   const handlePress = (type) => {
     navigation.navigate('NewQR', { type });
   };
 
+  const renderIcon = (iconName, iconType) => {
+    const iconSize = 30; // You can change this size if needed
+    if (iconType === 'MaterialCommunityIcons') {
+      return (
+        <MaterialCommunityIcons
+          name={iconName}
+          size={iconSize}
+          color="#FFA500"
+          style={styles.buttonImage} 
+        />
+      );
+    }
+    return (
+      <Icon
+        name={iconName}
+        size={iconSize}
+        color="#FFA500"
+        style={styles.buttonImage}
+      />
+    );
+  };
+
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Generate QR</Text>
-        <TouchableOpacity style={styles.menuButton} onPress={() => navigation.navigate('SettingsScreen')}>
+        <TouchableOpacity style={styles.menuButton} onPress={() => navigation.openDrawer()}>
           <MaterialIcons name="menu" size={30} color="#FFA500" />
         </TouchableOpacity>
       </View>
@@ -44,7 +68,7 @@ const MainScreen = () => {
               onPress={() => handlePress(option.name)} 
             >
               <Text style={styles.buttonText}>{option.name}</Text>
-              <Icon style={styles.buttonImage} name={option.icon} size={30} color="#FFA500" />
+              {renderIcon(option.icon, option.type)}
             </TouchableOpacity>
           ))}
         </View>
@@ -90,8 +114,8 @@ const styles = StyleSheet.create({
     borderRadius: 5 * widthRef,
     borderWidth: 1,
     borderColor: '#FFA500',
-    marginVertical:20*heightRef,
-    padding: 1* widthRef
+    marginVertical: 20 * heightRef,
+    padding: 1 * widthRef,
   },
   buttonText: {
     color: '#000',
@@ -101,13 +125,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFA500',
     paddingHorizontal: 3 * widthRef,
     borderRadius: 3 * widthRef,
+    margin:0
   },
   buttonImage: {
-    marginTop: 0,
     textAlign: 'center',
-    top: -35 * heightRef,
-    padding: 1* widthRef
+    top: -40 * heightRef,
+    padding: 0 * widthRef,
   },
 });
 
-export default MainScreen;
+export default GenerateQR;

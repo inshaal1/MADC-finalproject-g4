@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { heightRef, widthRef } from '../utils/Dimensions'; // Adjust the import path accordingly
+import { heightRef, widthRef } from '../utils/Dimensions'; 
 
 const NewQR = ({ navigation, route }) => { 
   const { type } = route.params;
@@ -25,7 +25,7 @@ const NewQR = ({ navigation, route }) => {
     twitterAccount: '',
     instagramAccount: '',
     whatsappNumber: '',
-    telephoneNumber: '', // Add a state for telephone number
+    telephoneNumber: '', 
   });
 
   const generateData = () => {
@@ -123,7 +123,7 @@ const NewQR = ({ navigation, route }) => {
           value={inputData.text}
           onChangeText={(value) => handleInputChange('text', value)}
           style={styles.input}
-          placeholderTextColor="#ccc" // Lighter color for placeholder
+          placeholderTextColor="#ccc" 
         />
       )}
       {type === 'Website' && (
@@ -333,9 +333,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     color: '#fff', 
     width: '100%', 
-  },
-  qrContainer: {
-    marginVertical: 20 * heightRef, 
   },
   button: {
     backgroundColor: '#FFA500',
