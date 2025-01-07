@@ -1,40 +1,38 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, Text, Button, Modal, TouchableOpacity, Animated } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect } from "react";
+import {StyleSheet,View,Text,Button,Modal,TouchableOpacity} from "react-native";
+import { Camera } from "expo-camera"; // Importing Camera from expo-camera/next
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Camera = () => {
+const CameraScreen = () => {
+  // Renamed the component to CameraScreen
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-  const [scannedData, setScannedData] = useState('');
+  const [scannedData, setScannedData] = useState("");
 
   useEffect(() => {
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      const { status } = await Camera.requestCameraPermissionsAsync(); // Request camera permission
+      setHasPermission(status === "granted");
     })();
-
   }, []);
 
- 
-
-  const handleBarCodeScanned = async ({ type, data }) => {
+  const handleBarCodeScanned = async ({ data }) => {
     if (scanned) return;
 
     setScanned(true);
-    setScannedData(`data: ${data} has been scanned!`);
+    setScannedData(`Data: ${data} has been scanned!`);
     setModalVisible(true);
 
     const timestamp = new Date().toLocaleString();
     const scannedItem = { data, timestamp };
     try {
-      const storedHistory = await AsyncStorage.getItem('scanHistory');
+      const storedHistory = await AsyncStorage.getItem("scanHistory");
       const history = storedHistory ? JSON.parse(storedHistory) : [];
       history.push(scannedItem);
-      await AsyncStorage.setItem('scanHistory', JSON.stringify(history));
+      await AsyncStorage.setItem("scanHistory", JSON.stringify(history));
     } catch (error) {
-      console.error('Error saving to history:', error);
+      console.error("Error saving to history:", error);
     }
   };
 
@@ -44,7 +42,7 @@ const Camera = () => {
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return <Text>Requesting camera permission...</Text>;
   }
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
@@ -52,14 +50,15 @@ const Camera = () => {
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+      {/* Camera component to display the camera view */}
+      <Camera
         style={StyleSheet.absoluteFillObject}
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} // Use the onBarCodeScanned prop for scanning
+        type={Camera.Constants.Type.back} // You can adjust the camera type here (front/back)
       />
-      
-    
+
       {scanned && (
-        <Button title={'Tap to Scan Again'} onPress={handleScanAgain} />
+        <Button title={"Tap to Scan Again"} onPress={handleScanAgain} />
       )}
 
       <Text style={styles.instructions}>
@@ -70,7 +69,7 @@ const Camera = () => {
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={handleScanAgain} 
+        onRequestClose={handleScanAgain}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -91,48 +90,48 @@ const Camera = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   scanLine: {
-    position: 'absolute',
-    width: '100%',
+    position: "absolute",
+    width: "100%",
     height: 2,
-    backgroundColor: '#FFA500',
+    backgroundColor: "#FFA500",
   },
   instructions: {
-    color: '#fff',
+    color: "#fff",
     marginTop: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
   },
   modalContent: {
-    width: '80%',
-    backgroundColor: '#000',
+    width: "80%",
+    backgroundColor: "#000",
     borderRadius: 10,
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
     elevation: 5,
   },
   modalText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
   },
   closeButton: {
     marginTop: 20,
-    backgroundColor: '#FFA500',
+    backgroundColor: "#FFA500",
     borderRadius: 5,
     padding: 10,
   },
   closeButtonText: {
-    color: '#000',
+    color: "#000",
   },
 });
 
-export default Camera;
+export default CameraScreen;
