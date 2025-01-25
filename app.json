@@ -3,11 +3,7 @@
     "name": "expoclass",
     "slug": "expoclass",
     "privacy": "public",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "default",
     "splash": {
@@ -18,22 +14,24 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "permissions": [
-        "CAMERA"
-      ],
+      "permissions": ["CAMERA"],
       "package": "com.expoclass.yourapp"
     },
     "runtimeVersion": {
       "policy": "sdkVersion"
     },
     "plugins": [
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
+        }
+      ],
       "expo-router"
     ]
   }

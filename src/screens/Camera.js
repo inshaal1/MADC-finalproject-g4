@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {StyleSheet,View,Text,Button,Modal,TouchableOpacity} from "react-native";
-import { Camera } from "expo-camera"; // Importing Camera from expo-camera/next
+import {
+  StyleSheet,
+  View,
+  Text,
+  Button,
+  Modal,
+  TouchableOpacity,
+  LogBox,
+} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { BarCodeScanner } from "expo-barcode-scanner";
+import { useIsFocused } from "@react-navigation/native";
 
 const CameraScreen = () => {
   // Renamed the component to CameraScreen
@@ -9,11 +18,16 @@ const CameraScreen = () => {
   const [scanned, setScanned] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [scannedData, setScannedData] = useState("");
+  const isFocused = useIsFocused();
 
   useEffect(() => {
+    LogBox.ignoreLogs([
+      "BarCodeScanner has been deprecated and will be removed in a future SDK version.",
+    ]);
+
     (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync(); // Request camera permission
-      setHasPermission(status === "granted");
+      const { status } = await BarCodeScanner.requestPermissionsAsync(); // Request camera permission
+      setHasPermission(status === "granted" ? true : false);
     })();
   }, []);
 
@@ -51,11 +65,13 @@ const CameraScreen = () => {
   return (
     <View style={styles.container}>
       {/* Camera component to display the camera view */}
-      <Camera
-        style={StyleSheet.absoluteFillObject}
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} // Use the onBarCodeScanned prop for scanning
-        type={Camera.Constants.Type.back} // You can adjust the camera type here (front/back)
-      />
+      {isFocused && (
+        <BarCodeScanner
+          style={StyleSheet.absoluteFillObject}
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned} // Use the onBarCodeScanned prop for scanning
+          type={"back"}
+        />
+      )}
 
       {scanned && (
         <Button title={"Tap to Scan Again"} onPress={handleScanAgain} />
