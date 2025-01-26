@@ -11,12 +11,12 @@ const Splash = ({ navigation }) => {
       Animated.sequence([
         Animated.timing(scaleAnim, {
           toValue: 1.2,
-          duration: 2000,
+          duration: 2300,
           useNativeDriver: true,
         }),
         Animated.timing(scaleAnim, {
           toValue: 1,
-          duration: 2000,
+          duration: 2300,
           useNativeDriver: true,
         }),
       ])
