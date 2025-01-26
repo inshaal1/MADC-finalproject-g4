@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1E1E1E',
-    paddingTop: 40,
+    paddingTop: 40 * heightRef,
+    paddingBottom: 120 * heightRef,
     height: fullHeight,
     width: fullWidth,
   },
@@ -89,12 +90,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20 * widthRef,
-    marginBottom: 20 * widthRef,
-  },
+    marginBottom: 10 * widthRef,
+   },
   title: {
-    fontSize: 26,
+    fontSize: 22,
     color: '#FFF',
-    flex: 1,
   },
   scrollContainer: {
     flex: 1,
@@ -125,7 +125,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFA500',
     paddingHorizontal: 3 * widthRef,
     borderRadius: 3 * widthRef,
-    margin:0
+    margin:0,
+    fontWeight: '400'
   },
   buttonImage: {
     textAlign: 'center',

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, Text, Button, Modal, TouchableOpacity, Animated } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text, Button, Modal, TouchableOpacity } from 'react-native';
+import { BarCodeScanner } from 'expo-barcode-scanner';  // Fixed import
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Camera = () => {
@@ -10,31 +10,36 @@ const Camera = () => {
   const [scannedData, setScannedData] = useState('');
 
   useEffect(() => {
-    (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
+    const getCameraPermission = async () => {
+      try {
+        const { status } = await BarCodeScanner.requestPermissionsAsync();
+        setHasPermission(status === 'granted');
+      } catch (error) {
+        console.error('Error requesting camera permission:', error);
+        setHasPermission(false);
+      }
+    };
 
+    getCameraPermission();
   }, []);
-
- 
 
   const handleBarCodeScanned = async ({ type, data }) => {
     if (scanned) return;
 
     setScanned(true);
-    setScannedData(`data: ${data} has been scanned!`);
+    setScannedData(`Data: ${data} has been scanned!`);
     setModalVisible(true);
 
     const timestamp = new Date().toLocaleString();
     const scannedItem = { data, timestamp };
+
     try {
       const storedHistory = await AsyncStorage.getItem('scanHistory');
       const history = storedHistory ? JSON.parse(storedHistory) : [];
       history.push(scannedItem);
       await AsyncStorage.setItem('scanHistory', JSON.stringify(history));
     } catch (error) {
-      console.error('Error saving to history:', error);
+      console.error('Error saving scan history:', error);
     }
   };
 
@@ -44,10 +49,10 @@ const Camera = () => {
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return <Text>Requesting camera permission...</Text>;
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return <Text>No access to camera. Please grant permission in settings.</Text>;
   }
 
   return (
@@ -56,29 +61,21 @@ const Camera = () => {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      
-    
-      {scanned && (
-        <Button title={'Tap to Scan Again'} onPress={handleScanAgain} />
-      )}
 
-      <Text style={styles.instructions}>
-        Point the camera at a QR code to scan it.
-      </Text>
+      {scanned && <Button title={'Tap to Scan Again'} onPress={handleScanAgain} />}
+
+      <Text style={styles.instructions}>Point the camera at a QR code to scan it.</Text>
 
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={handleScanAgain} 
+        onRequestClose={handleScanAgain}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Text style={styles.modalText}>{scannedData}</Text>
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={handleScanAgain}
-            >
+            <TouchableOpacity style={styles.closeButton} onPress={handleScanAgain}>
               <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
           </View>
