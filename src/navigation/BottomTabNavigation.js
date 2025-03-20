@@ -20,7 +20,7 @@ const BottomTabNavigation = () => {
           borderTopWidth: 0,
           position: 'absolute',
           width:"90%",
-          left:15,
+          left:21,
           right:10,
           bottom:10,
           marginBottom: 20,
@@ -70,6 +70,11 @@ const BottomTabNavigation = () => {
         options={{
           tabBarLabel: 'Generate',
           headerShown: false,
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: 'bold',
+            color: '#FFFFFF',
+          },
         }} 
       />
       
@@ -109,6 +114,11 @@ const BottomTabNavigation = () => {
         options={{
           tabBarLabel: 'History',
           headerShown: false,
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: 'bold',
+            color: '#FFFFFF',
+          },
         }} 
       />
     </Tab.Navigator>

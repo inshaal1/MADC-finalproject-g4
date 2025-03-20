@@ -81,7 +81,7 @@ const HistoryScreen = () => {
       <View style={styles.header}>
         <Text style={styles.title}>History</Text>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <MaterialIcons name="menu" size={20 * widthRef} color="#fff" />
+          <MaterialIcons name="menu" size={14 * widthRef} color="#fff" />
         </TouchableOpacity>
       </View>
 
@@ -139,9 +139,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: 40 * heightRef,
+    paddingHorizontal: 2 * widthRef,
   },
   title: {
-    fontSize: 40 * heightRef,
+    fontSize: 20 * heightRef,
     color: '#fff',
   },
   buttonContainer: {

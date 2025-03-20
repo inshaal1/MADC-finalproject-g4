@@ -1,5 +1,5 @@
 import React, {  useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { heightRef, widthRef } from '../utils/Dimensions'; 
@@ -112,7 +112,7 @@ const NewQR = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.backButton} onPress={handleBack}>
-        <Text style={styles.backButtonText}>{'< Back'}</Text>
+        <Text style={styles.backButtonText}>{'<  Back'}</Text>
       </TouchableOpacity>
 
       <Text style={styles.title}>Generate QR Code</Text>
@@ -297,27 +297,27 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#1E1E1E',
-    
     padding: 20 * heightRef,
   },
   backButton: {
     alignSelf: 'flex-start', 
     margin:10,
-    marginLeft: 20 * heightRef,
-    marginBottom: 20 * heightRef,
+    marginLeft: 0 * heightRef,
+    marginBottom: 50 * heightRef,
     shadowColor: "#000000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
-    borderRadius: 10 * widthRef,
+    borderRadius: 7 * widthRef,
     borderWidth: 1,
     borderColor: '#FFA500',
   },
   backButtonText: {
     color: '#FFA500',
-    fontSize: 24 * heightRef,
-    padding:4* widthRef
+    fontSize: 15 * heightRef,
+    padding:2* widthRef,
+    paddingHorizontal: 16 * heightRef
   },
   title: {
     color: '#FFA500',
@@ -337,19 +337,22 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#FFA500',
     borderRadius: 5,
-    paddingVertical: 15 * heightRef, 
-    paddingHorizontal: 20 * widthRef, 
-    width: '60%', 
+    paddingVertical: 10 * heightRef, 
+    paddingHorizontal: 10 * widthRef,
     alignItems: 'center',
+    marginTop: 20 * heightRef,
   },
   buttonText: {
     color: '#000', 
-    fontSize: 20 * heightRef, 
+    fontSize: 16 * heightRef, 
+    fontWeight: '600'
   },
   description: {
     color: '#FFA500',
     margin: 5 * heightRef,
-    paddingVertical: 15 * heightRef, 
+    paddingVertical: 7 * heightRef,
+    fontSize: 14 * heightRef,
+    alignSelf: 'flex-start',
   },
   qrContainer: {
     marginVertical: 20 * heightRef, 
